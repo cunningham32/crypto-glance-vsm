@@ -1,0 +1,401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7CA048B428E22DD1001BB8BB /* CryptoVSMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048B328E22DD1001BB8BB /* CryptoVSMApp.swift */; };
+		7CA048B828E22DD3001BB8BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CA048B728E22DD3001BB8BB /* Assets.xcassets */; };
+		7CA048BB28E22DD3001BB8BB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CA048BA28E22DD3001BB8BB /* Preview Assets.xcassets */; };
+		7CA048C328E22DFB001BB8BB /* VSM in Frameworks */ = {isa = PBXBuildFile; productRef = 7CA048C228E22DFB001BB8BB /* VSM */; };
+		7CA048C528E2320A001BB8BB /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048C428E2320A001BB8BB /* RootView.swift */; };
+		7CA048C928E239BE001BB8BB /* CoinDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */; };
+		7CA048CB28E23E5B001BB8BB /* WatchlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048CA28E23E5B001BB8BB /* WatchlistView.swift */; };
+		7CA048CD28E244F7001BB8BB /* offline.json in Resources */ = {isa = PBXBuildFile; fileRef = 7CA048CC28E244F7001BB8BB /* offline.json */; };
+		7CA048CF28E34840001BB8BB /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048CE28E34840001BB8BB /* Coin.swift */; };
+		7CA048D128E34976001BB8BB /* WatchlistViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D028E34976001BB8BB /* WatchlistViewState.swift */; };
+		7CA048D328E37C6B001BB8BB /* Extensions+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */; };
+		7CA048D528E387B5001BB8BB /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D428E387B5001BB8BB /* SearchBarView.swift */; };
+		7CA048D728E38809001BB8BB /* Extensions+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D628E38809001BB8BB /* Extensions+Color.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7CA048B028E22DD1001BB8BB /* CryptoVSM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoVSM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CA048B328E22DD1001BB8BB /* CryptoVSMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoVSMApp.swift; sourceTree = "<group>"; };
+		7CA048B728E22DD3001BB8BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7CA048BA28E22DD3001BB8BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7CA048C428E2320A001BB8BB /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataRepository.swift; sourceTree = "<group>"; };
+		7CA048CA28E23E5B001BB8BB /* WatchlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistView.swift; sourceTree = "<group>"; };
+		7CA048CC28E244F7001BB8BB /* offline.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = offline.json; sourceTree = "<group>"; };
+		7CA048CE28E34840001BB8BB /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
+		7CA048D028E34976001BB8BB /* WatchlistViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewState.swift; sourceTree = "<group>"; };
+		7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Double.swift"; sourceTree = "<group>"; };
+		7CA048D428E387B5001BB8BB /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		7CA048D628E38809001BB8BB /* Extensions+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Color.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7CA048AD28E22DD1001BB8BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA048C328E22DFB001BB8BB /* VSM in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7CA048A728E22DD1001BB8BB = {
+			isa = PBXGroup;
+			children = (
+				7CA048B228E22DD1001BB8BB /* CryptoVSM */,
+				7CA048B128E22DD1001BB8BB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7CA048B128E22DD1001BB8BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048B028E22DD1001BB8BB /* CryptoVSM.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CA048B228E22DD1001BB8BB /* CryptoVSM */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048B328E22DD1001BB8BB /* CryptoVSMApp.swift */,
+				7CA048C428E2320A001BB8BB /* RootView.swift */,
+				7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */,
+				7CA048CE28E34840001BB8BB /* Coin.swift */,
+				7CA048CC28E244F7001BB8BB /* offline.json */,
+				7CA048CA28E23E5B001BB8BB /* WatchlistView.swift */,
+				7CA048D428E387B5001BB8BB /* SearchBarView.swift */,
+				7CA048D628E38809001BB8BB /* Extensions+Color.swift */,
+				7CA048D028E34976001BB8BB /* WatchlistViewState.swift */,
+				7CA048B728E22DD3001BB8BB /* Assets.xcassets */,
+				7CA048B928E22DD3001BB8BB /* Preview Content */,
+				7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */,
+			);
+			path = CryptoVSM;
+			sourceTree = "<group>";
+		};
+		7CA048B928E22DD3001BB8BB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048BA28E22DD3001BB8BB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CA048AF28E22DD1001BB8BB /* CryptoVSM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CA048BE28E22DD3001BB8BB /* Build configuration list for PBXNativeTarget "CryptoVSM" */;
+			buildPhases = (
+				7CA048AC28E22DD1001BB8BB /* Sources */,
+				7CA048AD28E22DD1001BB8BB /* Frameworks */,
+				7CA048AE28E22DD1001BB8BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CryptoVSM;
+			packageProductDependencies = (
+				7CA048C228E22DFB001BB8BB /* VSM */,
+			);
+			productName = CryptoVSM;
+			productReference = 7CA048B028E22DD1001BB8BB /* CryptoVSM.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7CA048A828E22DD1001BB8BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					7CA048AF28E22DD1001BB8BB = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 7CA048AB28E22DD1001BB8BB /* Build configuration list for PBXProject "CryptoVSM" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7CA048A728E22DD1001BB8BB;
+			packageReferences = (
+				7CA048C128E22DFB001BB8BB /* XCRemoteSwiftPackageReference "vsm-ios" */,
+			);
+			productRefGroup = 7CA048B128E22DD1001BB8BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7CA048AF28E22DD1001BB8BB /* CryptoVSM */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7CA048AE28E22DD1001BB8BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA048CD28E244F7001BB8BB /* offline.json in Resources */,
+				7CA048BB28E22DD3001BB8BB /* Preview Assets.xcassets in Resources */,
+				7CA048B828E22DD3001BB8BB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7CA048AC28E22DD1001BB8BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CA048D728E38809001BB8BB /* Extensions+Color.swift in Sources */,
+				7CA048D128E34976001BB8BB /* WatchlistViewState.swift in Sources */,
+				7CA048C528E2320A001BB8BB /* RootView.swift in Sources */,
+				7CA048C928E239BE001BB8BB /* CoinDataRepository.swift in Sources */,
+				7CA048CB28E23E5B001BB8BB /* WatchlistView.swift in Sources */,
+				7CA048D528E387B5001BB8BB /* SearchBarView.swift in Sources */,
+				7CA048D328E37C6B001BB8BB /* Extensions+Double.swift in Sources */,
+				7CA048CF28E34840001BB8BB /* Coin.swift in Sources */,
+				7CA048B428E22DD1001BB8BB /* CryptoVSMApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7CA048BC28E22DD3001BB8BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7CA048BD28E22DD3001BB8BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7CA048BF28E22DD3001BB8BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CryptoVSM/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = acunningham.CryptoVSM;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7CA048C028E22DD3001BB8BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CryptoVSM/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = acunningham.CryptoVSM;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7CA048AB28E22DD1001BB8BB /* Build configuration list for PBXProject "CryptoVSM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA048BC28E22DD3001BB8BB /* Debug */,
+				7CA048BD28E22DD3001BB8BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CA048BE28E22DD3001BB8BB /* Build configuration list for PBXNativeTarget "CryptoVSM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA048BF28E22DD3001BB8BB /* Debug */,
+				7CA048C028E22DD3001BB8BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7CA048C128E22DFB001BB8BB /* XCRemoteSwiftPackageReference "vsm-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wayfair/vsm-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7CA048C228E22DFB001BB8BB /* VSM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7CA048C128E22DFB001BB8BB /* XCRemoteSwiftPackageReference "vsm-ios" */;
+			productName = VSM;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7CA048A828E22DD1001BB8BB /* Project object */;
+}

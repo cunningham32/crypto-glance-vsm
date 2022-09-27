@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "vsm-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wayfair/vsm-ios",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a0bb05bd057b2a2a8b09b669fa65d567d26a4729"
+      }
+    }
+  ],
+  "version" : 2
+}
