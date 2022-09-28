@@ -26,7 +26,7 @@ struct WatchlistView: View, ViewStateRendering {
         case .loading, .initialized(_):
             ProgressView()
         case .loaded(let loadedModel):
-            WatchlistDataView(dependencies: dependencies, coins: loadedModel.coinData.coins)
+            WatchlistDataView(dependencies: dependencies, coins: loadedModel.coinData.coins, model: loadedModel)
         case .offline(_):
             Text("offline")
         }
@@ -36,10 +36,11 @@ struct WatchlistView: View, ViewStateRendering {
 struct WatchlistDataView: View {
     let dependencies: WatchlistView.Dependencies
     let coins: [Coin]
+    let model: WatchlistLoadedModeling
     
     var body: some View {
         NavigationView {
-            WatchlistListView(dependencies: dependencies, coins: coins)
+            WatchlistListView(dependencies: dependencies, coins: coins, model: model)
         }
     }
 }
@@ -47,6 +48,7 @@ struct WatchlistDataView: View {
 struct WatchlistListView: View {
     let dependencies: WatchlistView.Dependencies
     let coins: [Coin]
+    let model: WatchlistLoadedModeling
     @State var searchText = ""
     
     var body: some View {
@@ -60,8 +62,7 @@ struct WatchlistListView: View {
                 print("update")
             }
             .onChange(of: searchText) { newValue in
-                // update loaded model
-                print(newValue)
+                model.searchTextEntered(newValue)
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
         }

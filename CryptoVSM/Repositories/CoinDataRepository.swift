@@ -20,6 +20,7 @@ enum CoinDataState {
 protocol CoinDataProviding {
     var coinDataPublisher: AnyPublisher<CoinDataState, Never> { get }
     func updateCoins()
+    func searchCoin(text: String)
 }
 
 protocol CoinDataProvidingDependency {
@@ -36,6 +37,10 @@ class CoinDataRepository: CoinDataProviding {
     }
     
     private var cancellables = [AnyCancellable]()
+    
+    enum Errors: Error {
+        case unableToConstructUrl
+    }
     
     init() throws {
         guard let url = Bundle.main.url(forResource: "offline", withExtension: "json") else {
@@ -65,10 +70,42 @@ class CoinDataRepository: CoinDataProviding {
         }
     }
     
+    func searchCoin(text: String) {
+        Task {
+            try await searchCoin(text: text)
+        }
+    }
+    
     func fetch(coins: [Coin]) async throws {
         coinDataSubject.value = .loading
         let coinData = try await update(coins: coins)
         coinDataSubject.value = .loaded(coinData)
+    }
+    
+    func searchCoin(text: String) async throws {
+        // https://api.coingecko.com/api/v3/search?query=btc
+        var urlComponents = URLComponents(string: "https://api.coingecko.com/api/v3/search")
+        let queries = [
+            URLQueryItem(name: "query", value: text)
+        ]
+        
+        urlComponents?.queryItems = queries
+        guard let url = urlComponents?.url else {
+            throw Errors.unableToConstructUrl
+        }
+        
+        print(url)
+        let (data, request) = try await URLSession.shared.data(for: URLRequest(url: url))
+        print(request)
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let response = try JSONDecoder().decode(SearchResponse.self, from: data)
+            print(response)
+        } catch {
+            print(error)
+        }
+        
     }
 }
 
@@ -91,8 +128,7 @@ private extension CoinDataRepository {
     }
     
     func update(coins: [Coin]) async throws -> CoinData {
-        let url = buildURL(coins: coins)
-        print(url)
+        let url = try buildURL(coins: coins)
         let (data, _) = try await URLSession.shared.data(for: URLRequest(url: url))
         let response = try JSONDecoder().decode([String: [String: Decimal]].self, from: data)
         let updated: [Coin] = coins.compactMap { coin in
@@ -111,7 +147,7 @@ private extension CoinDataRepository {
     }
     
     // TODO: make this more modular
-    func buildURL(coins: [Coin]) -> URL {
+    func buildURL(coins: [Coin]) throws -> URL {
         let queryIds = String(coins.reduce("") { partialResult, coin in
             partialResult + "," + coin.id
         }.dropFirst())
@@ -125,7 +161,7 @@ private extension CoinDataRepository {
         
         urlComponents?.queryItems = queries
         guard let url = urlComponents?.url else {
-            preconditionFailure("Unable to construct URL")
+            throw Errors.unableToConstructUrl
         }
         
         return url

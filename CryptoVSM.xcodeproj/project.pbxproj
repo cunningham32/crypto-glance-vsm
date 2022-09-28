@@ -20,6 +20,9 @@
 		7CA048D328E37C6B001BB8BB /* Extensions+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */; };
 		7CA048D528E387B5001BB8BB /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D428E387B5001BB8BB /* SearchBarView.swift */; };
 		7CA048D728E38809001BB8BB /* Extensions+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA048D628E38809001BB8BB /* Extensions+Color.swift */; };
+		7CE5254C28E456240007BE83 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254B28E456240007BE83 /* SearchResponse.swift */; };
+		7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */; };
+		7CE5255028E45C7B0007BE83 /* SearchResponseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Double.swift"; sourceTree = "<group>"; };
 		7CA048D428E387B5001BB8BB /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		7CA048D628E38809001BB8BB /* Extensions+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Color.swift"; sourceTree = "<group>"; };
+		7CE5254B28E456240007BE83 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseItemView.swift; sourceTree = "<group>"; };
+		7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,18 +75,14 @@
 		7CA048B228E22DD1001BB8BB /* CryptoVSM */ = {
 			isa = PBXGroup;
 			children = (
+				7CE5255728E45EBB0007BE83 /* Resources */,
+				7CE5255628E45E8D0007BE83 /* Models */,
+				7CE5255328E45E540007BE83 /* Views */,
+				7CE5255228E45E400007BE83 /* Repositories */,
+				7CE5255128E45E250007BE83 /* Extensions */,
 				7CA048B328E22DD1001BB8BB /* CryptoVSMApp.swift */,
-				7CA048C428E2320A001BB8BB /* RootView.swift */,
-				7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */,
-				7CA048CE28E34840001BB8BB /* Coin.swift */,
-				7CA048CC28E244F7001BB8BB /* offline.json */,
-				7CA048CA28E23E5B001BB8BB /* WatchlistView.swift */,
-				7CA048D428E387B5001BB8BB /* SearchBarView.swift */,
-				7CA048D628E38809001BB8BB /* Extensions+Color.swift */,
-				7CA048D028E34976001BB8BB /* WatchlistViewState.swift */,
 				7CA048B728E22DD3001BB8BB /* Assets.xcassets */,
 				7CA048B928E22DD3001BB8BB /* Preview Content */,
-				7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */,
 			);
 			path = CryptoVSM;
 			sourceTree = "<group>";
@@ -91,6 +93,69 @@
 				7CA048BA28E22DD3001BB8BB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7CE5255128E45E250007BE83 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048D228E37C6B001BB8BB /* Extensions+Double.swift */,
+				7CA048D628E38809001BB8BB /* Extensions+Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7CE5255228E45E400007BE83 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		7CE5255328E45E540007BE83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048C428E2320A001BB8BB /* RootView.swift */,
+				7CE5255528E45E6E0007BE83 /* Search */,
+				7CE5255428E45E5C0007BE83 /* Watchlist */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7CE5255428E45E5C0007BE83 /* Watchlist */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048CA28E23E5B001BB8BB /* WatchlistView.swift */,
+				7CA048D028E34976001BB8BB /* WatchlistViewState.swift */,
+			);
+			path = Watchlist;
+			sourceTree = "<group>";
+		};
+		7CE5255528E45E6E0007BE83 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */,
+				7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */,
+				7CA048D428E387B5001BB8BB /* SearchBarView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		7CE5255628E45E8D0007BE83 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048CE28E34840001BB8BB /* Coin.swift */,
+				7CE5254B28E456240007BE83 /* SearchResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7CE5255728E45EBB0007BE83 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7CA048CC28E244F7001BB8BB /* offline.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,10 +237,13 @@
 			files = (
 				7CA048D728E38809001BB8BB /* Extensions+Color.swift in Sources */,
 				7CA048D128E34976001BB8BB /* WatchlistViewState.swift in Sources */,
+				7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */,
 				7CA048C528E2320A001BB8BB /* RootView.swift in Sources */,
 				7CA048C928E239BE001BB8BB /* CoinDataRepository.swift in Sources */,
 				7CA048CB28E23E5B001BB8BB /* WatchlistView.swift in Sources */,
 				7CA048D528E387B5001BB8BB /* SearchBarView.swift in Sources */,
+				7CE5255028E45C7B0007BE83 /* SearchResponseListView.swift in Sources */,
+				7CE5254C28E456240007BE83 /* SearchResponse.swift in Sources */,
 				7CA048D328E37C6B001BB8BB /* Extensions+Double.swift in Sources */,
 				7CA048CF28E34840001BB8BB /* Coin.swift in Sources */,
 				7CA048B428E22DD1001BB8BB /* CryptoVSMApp.swift in Sources */,

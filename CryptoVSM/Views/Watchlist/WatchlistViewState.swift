@@ -24,6 +24,7 @@ protocol WatchlistLoaderModeling {
 protocol WatchlistLoadedModeling {
     var coinData: CoinData { get }
     func updateWatchlist() -> AnyPublisher<WatchlistViewState, Never>
+    func searchTextEntered(_ text: String)
 }
 
 protocol WatchlistOfflineModeling {
@@ -50,10 +51,20 @@ struct WatchlistLoaderModel: WatchlistLoaderModeling {
     }
 }
 
-struct WatchlistLoadedModel: WatchlistLoadedModeling {
+class WatchlistLoadedModel: WatchlistLoadedModeling {
     typealias Dependencies = CoinDataProvidingDependency
     let dependencies: Dependencies
     var coinData: CoinData
+    
+    private let searchTextPublisher = PassthroughSubject<String, Error>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(dependencies: Dependencies, coinData: CoinData) {
+        self.dependencies = dependencies
+        self.coinData = coinData
+        
+        setupSearchTextSubscriber()
+    }
     
     func updateWatchlist() -> AnyPublisher<WatchlistViewState, Never> {
         dependencies.coinDataRepository.updateCoins()
@@ -63,8 +74,25 @@ struct WatchlistLoadedModel: WatchlistLoadedModeling {
                 return WatchlistViewState.loading
             case .loaded(let coinData):
                 return WatchlistViewState.loaded(
-                    WatchlistLoadedModel(dependencies: dependencies, coinData: coinData))
+                    WatchlistLoadedModel(dependencies: self.dependencies, coinData: coinData))
             }
         }.eraseToAnyPublisher()
+    }
+    
+    func searchTextEntered(_ text: String) {
+        searchTextPublisher.send(text)
+    }
+}
+
+private extension WatchlistLoadedModel {
+    func setupSearchTextSubscriber() {
+        searchTextPublisher
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .sink { error in
+                print(error)
+            } receiveValue: { text in
+                self.dependencies.coinDataRepository.searchCoin(text: text)
+            }
+            .store(in: &cancellables)
     }
 }

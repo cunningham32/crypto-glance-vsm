@@ -14,8 +14,8 @@
             filePath = "CryptoVSM/CoinDataRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "fetch(coins:)"
             landmarkType = "7">
          </BreakpointContent>
