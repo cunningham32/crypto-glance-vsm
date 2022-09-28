@@ -12,23 +12,53 @@ import Combine
 
 enum WatchlistViewState {
     case initialized(WatchlistLoaderModeling)
-    case loading
+    case loading(WatchlistLoadingModeling)
     case loaded(WatchlistLoadedModeling)
-    case offline(WatchlistOfflineModeling)
+    case loadingError(ErrorModeling)
+}
+
+extension WatchlistViewState {
+    var coinData: CoinData {
+        switch self {
+        case .initialized(let model):
+            return model.offlineCoinData
+        case .loading(let model):
+            return model.offlineCoinData
+        case .loadingError(let model):
+            return model.offlineCoinData
+        case .loaded(let model):
+            return model.coinData
+        }
+    }
+    
+    var isLoading: Bool {
+        switch self {
+        case .initialized(_), .loading(_):
+            return true
+        case .loaded(_), .loadingError(_):
+            return false
+        }
+    }
 }
 
 protocol WatchlistLoaderModeling {
-    func loadWatchlist() -> AnyPublisher<WatchlistViewState, Never>
+    var offlineCoinData: CoinData { get }
+    func load() -> AnyPublisher<WatchlistViewState, Never>
+}
+
+protocol WatchlistLoadingModeling {
+    var offlineCoinData: CoinData { get }
 }
 
 protocol WatchlistLoadedModeling {
     var coinData: CoinData { get }
-    func updateWatchlist() -> AnyPublisher<WatchlistViewState, Never>
-    func searchTextEntered(_ text: String)
+    func update() -> AnyPublisher<WatchlistViewState, Never>
+    func enterSearch(text: String)
 }
 
-protocol WatchlistOfflineModeling {
-    var coinData: CoinData { get }
+protocol ErrorModeling {
+    var offlineCoinData: CoinData { get }
+    var message: String { get }
     func retry() -> AnyPublisher<WatchlistViewState, Never>
 }
 
@@ -36,19 +66,50 @@ protocol WatchlistOfflineModeling {
 struct WatchlistLoaderModel: WatchlistLoaderModeling {
     typealias Dependencies = CoinDataProvidingDependency
     let dependencies: Dependencies
+    let offlineCoinData: CoinData
     
-    func loadWatchlist() -> AnyPublisher<WatchlistViewState, Never> {
-        dependencies.coinDataRepository.updateCoins()
-        return dependencies.coinDataRepository.coinDataPublisher.map { coinDataState in
-            switch coinDataState {
-            case .loading:
-                return WatchlistViewState.loading
-            case .loaded(let coinData):
-                return WatchlistViewState.loaded(
-                    WatchlistLoadedModel(dependencies: dependencies, coinData: coinData))
-            }
-        }.eraseToAnyPublisher()
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+        self.offlineCoinData = dependencies.coinDataRepository.offlineCoinDataSubject.value
     }
+    
+    func load() -> AnyPublisher<WatchlistViewState, Never> {
+        loadWatchlistData()
+            .merge(with: getWatchlistDataStream())
+            .eraseToAnyPublisher()
+    }
+}
+
+private extension WatchlistLoaderModel {
+    private func loadWatchlistData() -> AnyPublisher<WatchlistViewState, Never> {
+        dependencies.coinDataRepository.load()
+            .map { coinData in
+            WatchlistViewState.loaded(
+                WatchlistLoadedModel(dependencies: dependencies, coinData: coinData))
+            }
+            .catch{ error -> Just<WatchlistViewState> in
+                let errorModel = ErrorModel(offlineCoinData: offlineCoinData, message: error.localizedDescription)
+                return Just(WatchlistViewState.loadingError(errorModel))
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    private func getWatchlistDataStream() -> AnyPublisher<WatchlistViewState, Never> {
+        dependencies.coinDataRepository.coinDataPublisher
+            .map { dataState -> WatchlistViewState in
+                switch dataState {
+                case .loading:
+                    return .loading(WatchlistLoadingModel(offlineCoinData: offlineCoinData))
+                case .loaded(let coinData):
+                    return .loaded(WatchlistLoadedModel(dependencies: dependencies, coinData: coinData))
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+struct WatchlistLoadingModel: WatchlistLoadingModeling {
+    let offlineCoinData: CoinData
 }
 
 class WatchlistLoadedModel: WatchlistLoadedModeling {
@@ -66,12 +127,11 @@ class WatchlistLoadedModel: WatchlistLoadedModeling {
         setupSearchTextSubscriber()
     }
     
-    func updateWatchlist() -> AnyPublisher<WatchlistViewState, Never> {
-        dependencies.coinDataRepository.updateCoins()
-        return dependencies.coinDataRepository.coinDataPublisher.map { coinDataState in
+    func update() -> AnyPublisher<WatchlistViewState, Never> {
+        dependencies.coinDataRepository.updateCoins().map { coinDataState in
             switch coinDataState {
             case .loading:
-                return WatchlistViewState.loading
+                return WatchlistViewState.loading(WatchlistLoadingModel(offlineCoinData: self.coinData))
             case .loaded(let coinData):
                 return WatchlistViewState.loaded(
                     WatchlistLoadedModel(dependencies: self.dependencies, coinData: coinData))
@@ -79,7 +139,7 @@ class WatchlistLoadedModel: WatchlistLoadedModeling {
         }.eraseToAnyPublisher()
     }
     
-    func searchTextEntered(_ text: String) {
+    func enterSearch(text: String) {
         searchTextPublisher.send(text)
     }
 }
@@ -91,8 +151,19 @@ private extension WatchlistLoadedModel {
             .sink { error in
                 print(error)
             } receiveValue: { text in
-                self.dependencies.coinDataRepository.searchCoin(text: text)
+                let query = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !query.isEmpty else { return }
+                self.dependencies.coinDataRepository.searchCoin(text: query)
             }
             .store(in: &cancellables)
+    }
+}
+
+struct ErrorModel: ErrorModeling {
+    let offlineCoinData: CoinData
+    let message: String
+    
+    func retry() -> AnyPublisher<WatchlistViewState, Never> {
+        Just(WatchlistViewState.loadingError(self)).eraseToAnyPublisher()
     }
 }

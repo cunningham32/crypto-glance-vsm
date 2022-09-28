@@ -19,8 +19,11 @@ enum CoinDataState {
 
 protocol CoinDataProviding {
     var coinDataPublisher: AnyPublisher<CoinDataState, Never> { get }
-    func updateCoins()
+    var offlineCoinDataSubject: CurrentValueSubject<CoinData, Never> { get }
+    
+    func updateCoins() -> AnyPublisher<CoinDataState, Never>
     func searchCoin(text: String)
+    func load() -> AnyPublisher<CoinData, Error>
 }
 
 protocol CoinDataProvidingDependency {
@@ -30,11 +33,13 @@ protocol CoinDataProvidingDependency {
 class CoinDataRepository: CoinDataProviding {
     
     private let offlineUrl: URL
-    private var offlineCoinData = CoinData(coins: [])
+    
     private var coinDataSubject = CurrentValueSubject<CoinDataState, Never>(.loading)
     var coinDataPublisher: AnyPublisher<CoinDataState, Never> {
         coinDataSubject.share().eraseToAnyPublisher()
     }
+    
+    var offlineCoinDataSubject = CurrentValueSubject<CoinData, Never>(CoinData(coins: []))
     
     private var cancellables = [AnyCancellable]()
     
@@ -47,14 +52,15 @@ class CoinDataRepository: CoinDataProviding {
             preconditionFailure("offline.json not found")
         }
         
-        self.offlineUrl = url
+        offlineUrl = url
         try loadOfflineCoins()
+        
         coinDataPublisher.sink(receiveValue: { coinDataState in
             guard case CoinDataState.loaded(let coinData) = coinDataState else {
                 return
             }
             
-            self.offlineCoinData = coinData
+            self.offlineCoinDataSubject.value = coinData
             do {
                 try self.saveOffline()
             } catch {
@@ -64,22 +70,48 @@ class CoinDataRepository: CoinDataProviding {
         .store(in: &cancellables)
     }
     
-    func updateCoins() {
-        Task {
-            try await fetch(coins: offlineCoinData.coins)
+    func load() -> AnyPublisher<CoinData, Error> {
+        do {
+            let url = try buildURL(coins: offlineCoinDataSubject.value.coins)
+            
+            return URLSession.shared.dataTaskPublisher(for: url)
+                    .tryMap(\.data)
+                    .decode(type: [String: [String: Decimal]].self, decoder: JSONDecoder())
+                    .compactMap { item in
+                        let coins: [Coin] = self.offlineCoinDataSubject.value.coins.compactMap { coin in
+                            guard let coinPrice = item[coin.id],
+                                  let usdPrice = coinPrice["usd"],
+                                  let priceChangePercentage24H = coinPrice["usd_24h_change"] else {
+                                return nil
+                            }
+                            
+                            return Coin(update: coin,
+                                        with: usdPrice,
+                                        priceChangePercentage24H: priceChangePercentage24H)
+                            
+                        }
+                        
+                        return CoinData(coins: coins)
+                    }
+                    .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
         }
+    }
+    
+    func updateCoins() -> AnyPublisher<CoinDataState, Never> {
+        coinDataSubject.value = .loading
+        Task {
+            let coinData = try await update(coins: offlineCoinDataSubject.value.coins)
+            coinDataSubject.value = .loaded(coinData)
+        }
+        return coinDataSubject.eraseToAnyPublisher()
     }
     
     func searchCoin(text: String) {
         Task {
             try await searchCoin(text: text)
         }
-    }
-    
-    func fetch(coins: [Coin]) async throws {
-        coinDataSubject.value = .loading
-        let coinData = try await update(coins: coins)
-        coinDataSubject.value = .loaded(coinData)
     }
     
     func searchCoin(text: String) async throws {
@@ -96,12 +128,12 @@ class CoinDataRepository: CoinDataProviding {
         
         print(url)
         let (data, request) = try await URLSession.shared.data(for: URLRequest(url: url))
-        print(request)
+//        print(request)
         do {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             let response = try JSONDecoder().decode(SearchResponse.self, from: data)
-            print(response)
+//            print(response)
         } catch {
             print(error)
         }
@@ -113,12 +145,12 @@ private extension CoinDataRepository {
     func loadOfflineCoins() throws {
         let data = try Data(contentsOf: offlineUrl)
         let coins = try JSONDecoder().decode([Coin].self, from: data)
-        offlineCoinData = CoinData(coins: coins)
+        offlineCoinDataSubject.value = CoinData(coins: coins)
     }
     
     func saveOffline() throws {
         do {
-            let data = try JSONEncoder().encode(offlineCoinData.coins)
+            let data = try JSONEncoder().encode(offlineCoinDataSubject.value.coins)
             try data.write(to: offlineUrl)
         } catch {
             print(error)

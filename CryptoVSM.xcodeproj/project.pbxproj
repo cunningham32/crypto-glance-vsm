@@ -23,6 +23,7 @@
 		7CE5254C28E456240007BE83 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254B28E456240007BE83 /* SearchResponse.swift */; };
 		7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */; };
 		7CE5255028E45C7B0007BE83 /* SearchResponseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */; };
+		7CE5255928E4D1880007BE83 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5255828E4D1880007BE83 /* ShimmerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		7CE5254B28E456240007BE83 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseItemView.swift; sourceTree = "<group>"; };
 		7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseListView.swift; sourceTree = "<group>"; };
+		7CE5255828E4D1880007BE83 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				7CA048C428E2320A001BB8BB /* RootView.swift */,
 				7CE5255528E45E6E0007BE83 /* Search */,
 				7CE5255428E45E5C0007BE83 /* Watchlist */,
+				7CE5255828E4D1880007BE83 /* ShimmerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			files = (
 				7CA048D728E38809001BB8BB /* Extensions+Color.swift in Sources */,
 				7CA048D128E34976001BB8BB /* WatchlistViewState.swift in Sources */,
+				7CE5255928E4D1880007BE83 /* ShimmerView.swift in Sources */,
 				7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */,
 				7CA048C528E2320A001BB8BB /* RootView.swift in Sources */,
 				7CA048C928E239BE001BB8BB /* CoinDataRepository.swift in Sources */,
