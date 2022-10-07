@@ -53,7 +53,7 @@ protocol WatchlistLoadingModeling {
 protocol WatchlistLoadedModeling {
     var coinData: CoinData { get }
     func update() -> AnyPublisher<WatchlistViewState, Never>
-    func enterSearch(text: String)
+    func enterSearch(text: String) -> AnyPublisher<WatchlistViewState, Never>
 }
 
 protocol ErrorModeling {
@@ -64,7 +64,7 @@ protocol ErrorModeling {
 
 // MARK: - Model Implementations
 struct WatchlistLoaderModel: WatchlistLoaderModeling {
-    typealias Dependencies = CoinDataProvidingDependency
+    typealias Dependencies = CoinDataProvidingDependency & SearchDataProvidingDependency
     let dependencies: Dependencies
     let offlineCoinData: CoinData
     
@@ -113,16 +113,19 @@ struct WatchlistLoadingModel: WatchlistLoadingModeling {
 }
 
 class WatchlistLoadedModel: WatchlistLoadedModeling {
-    typealias Dependencies = CoinDataProvidingDependency
+    typealias Dependencies = CoinDataProvidingDependency & SearchDataProvidingDependency
     let dependencies: Dependencies
     var coinData: CoinData
+    var searchResponse: SearchResponse
+    private let searchViewState = CurrentValueSubject<SearchDataState, Never>(.notActive)
     
     private let searchTextPublisher = PassthroughSubject<String, Error>()
     private var cancellables = Set<AnyCancellable>()
     
-    init(dependencies: Dependencies, coinData: CoinData) {
+    init(dependencies: Dependencies, coinData: CoinData, searchResponse: SearchResponse? = nil) {
         self.dependencies = dependencies
         self.coinData = coinData
+        self.searchResponse = searchResponse ?? SearchResponse(coins: [])
         
         setupSearchTextSubscriber()
     }
@@ -139,12 +142,25 @@ class WatchlistLoadedModel: WatchlistLoadedModeling {
         }.eraseToAnyPublisher()
     }
     
-    func enterSearch(text: String) {
+    func enterSearch(text: String) -> AnyPublisher<WatchlistViewState, Never> {
+        let coinData = CoinData(coins:
+            coinData.coins.filter { $0.symbol.contains(text) || $0.name.contains(text) })
         searchTextPublisher.send(text)
+        return Just(WatchlistViewState.loaded(
+            WatchlistLoadedModel(dependencies: dependencies, coinData: coinData)))
+                .eraseToAnyPublisher()
     }
 }
 
 private extension WatchlistLoadedModel {
+    private func loadSearchData(text: String) {
+        dependencies.searchDataRepository.searchCoin(text: text).sink {
+            self.searchViewState.value = $0
+        }
+        
+        
+    }
+    
     func setupSearchTextSubscriber() {
         searchTextPublisher
             .debounce(for: 0.8, scheduler: DispatchQueue.main)
@@ -153,7 +169,7 @@ private extension WatchlistLoadedModel {
             } receiveValue: { text in
                 let query = text.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !query.isEmpty else { return }
-                self.dependencies.coinDataRepository.searchCoin(text: query)
+                self.loadSearchData(text: query)
             }
             .store(in: &cancellables)
     }

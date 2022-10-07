@@ -10,7 +10,7 @@ import VSM
 import Combine
 
 struct WatchlistView: View, ViewStateRendering {
-    typealias Dependencies = CoinDataProvidingDependency
+    typealias Dependencies = CoinDataProvidingDependency & SearchDataProvidingDependency
     private let dependencies: Dependencies
     
     @ObservedObject private(set) var container: StateContainer<WatchlistViewState>

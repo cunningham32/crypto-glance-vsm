@@ -22,7 +22,6 @@ protocol CoinDataProviding {
     var offlineCoinDataSubject: CurrentValueSubject<CoinData, Never> { get }
     
     func updateCoins() -> AnyPublisher<CoinDataState, Never>
-    func searchCoin(text: String)
     func load() -> AnyPublisher<CoinData, Error>
 }
 
@@ -32,6 +31,7 @@ protocol CoinDataProvidingDependency {
 
 class CoinDataRepository: CoinDataProviding {
     
+    private let persistenceManager: PersistenceManaging
     private let offlineUrl: URL
     
     private var coinDataSubject = CurrentValueSubject<CoinDataState, Never>(.loading)
@@ -47,13 +47,16 @@ class CoinDataRepository: CoinDataProviding {
         case unableToConstructUrl
     }
     
-    init() throws {
+    init(persistenceManager: PersistenceManaging) throws {
         guard let url = Bundle.main.url(forResource: "offline", withExtension: "json") else {
             preconditionFailure("offline.json not found")
         }
         
+        self.persistenceManager = persistenceManager
+        
         offlineUrl = url
-        try loadOfflineCoins()
+        offlineCoinDataSubject.value = persistenceManager.load()
+//        try loadOfflineCoins()
         
         coinDataPublisher.sink(receiveValue: { coinDataState in
             guard case CoinDataState.loaded(let coinData) = coinDataState else {
@@ -106,38 +109,6 @@ class CoinDataRepository: CoinDataProviding {
             coinDataSubject.value = .loaded(coinData)
         }
         return coinDataSubject.eraseToAnyPublisher()
-    }
-    
-    func searchCoin(text: String) {
-        Task {
-            try await searchCoin(text: text)
-        }
-    }
-    
-    func searchCoin(text: String) async throws {
-        // https://api.coingecko.com/api/v3/search?query=btc
-        var urlComponents = URLComponents(string: "https://api.coingecko.com/api/v3/search")
-        let queries = [
-            URLQueryItem(name: "query", value: text)
-        ]
-        
-        urlComponents?.queryItems = queries
-        guard let url = urlComponents?.url else {
-            throw Errors.unableToConstructUrl
-        }
-        
-        print(url)
-        let (data, request) = try await URLSession.shared.data(for: URLRequest(url: url))
-//        print(request)
-        do {
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let response = try JSONDecoder().decode(SearchResponse.self, from: data)
-//            print(response)
-        } catch {
-            print(error)
-        }
-        
     }
 }
 

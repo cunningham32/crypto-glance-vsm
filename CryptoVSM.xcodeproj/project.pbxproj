@@ -24,6 +24,9 @@
 		7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */; };
 		7CE5255028E45C7B0007BE83 /* SearchResponseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */; };
 		7CE5255928E4D1880007BE83 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5255828E4D1880007BE83 /* ShimmerView.swift */; };
+		7CE5255B28E4D6A50007BE83 /* PersistenceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5255A28E4D6A50007BE83 /* PersistenceRepository.swift */; };
+		7CE5255D28E4DD7C0007BE83 /* SearchViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5255C28E4DD7C0007BE83 /* SearchViewState.swift */; };
+		7CE5255F28E4E0350007BE83 /* SearchDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE5255E28E4E0350007BE83 /* SearchDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseItemView.swift; sourceTree = "<group>"; };
 		7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponseListView.swift; sourceTree = "<group>"; };
 		7CE5255828E4D1880007BE83 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
+		7CE5255A28E4D6A50007BE83 /* PersistenceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRepository.swift; sourceTree = "<group>"; };
+		7CE5255C28E4DD7C0007BE83 /* SearchViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewState.swift; sourceTree = "<group>"; };
+		7CE5255E28E4E0350007BE83 /* SearchDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				7CA048C828E239BE001BB8BB /* CoinDataRepository.swift */,
+				7CE5255A28E4D6A50007BE83 /* PersistenceRepository.swift */,
+				7CE5255E28E4E0350007BE83 /* SearchDataRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 				7CE5254D28E45AAC0007BE83 /* SearchResponseItemView.swift */,
 				7CE5254F28E45C7B0007BE83 /* SearchResponseListView.swift */,
 				7CA048D428E387B5001BB8BB /* SearchBarView.swift */,
+				7CE5255C28E4DD7C0007BE83 /* SearchViewState.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -243,8 +252,11 @@
 				7CE5255928E4D1880007BE83 /* ShimmerView.swift in Sources */,
 				7CE5254E28E45AAC0007BE83 /* SearchResponseItemView.swift in Sources */,
 				7CA048C528E2320A001BB8BB /* RootView.swift in Sources */,
+				7CE5255F28E4E0350007BE83 /* SearchDataRepository.swift in Sources */,
 				7CA048C928E239BE001BB8BB /* CoinDataRepository.swift in Sources */,
 				7CA048CB28E23E5B001BB8BB /* WatchlistView.swift in Sources */,
+				7CE5255B28E4D6A50007BE83 /* PersistenceRepository.swift in Sources */,
+				7CE5255D28E4DD7C0007BE83 /* SearchViewState.swift in Sources */,
 				7CA048D528E387B5001BB8BB /* SearchBarView.swift in Sources */,
 				7CE5255028E45C7B0007BE83 /* SearchResponseListView.swift in Sources */,
 				7CE5254C28E456240007BE83 /* SearchResponse.swift in Sources */,

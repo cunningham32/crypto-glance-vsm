@@ -16,6 +16,17 @@ struct RootView: View {
     }
     
     var body: some View {
-        WatchlistView(dependencies: dependencies)
+        TabView {
+            WatchlistView(dependencies: dependencies)
+                .tabItem {
+                    Label("Watch List", systemImage: "star.fill")
+                }
+            
+            Text("Search")
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                        
+                }
+        }
     }
 }
